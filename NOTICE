@@ -1,0 +1,21 @@
+Manga Panel Detection Model (RF-DETR, trained on Manga109-s)
+Copyright 2026 imjxxl
+SPDX-License-Identifier: Apache-2.0
+
+This product includes software developed as part of the Mandu (漫读)
+open-source manga reader project.
+
+This model is trained on Manga109-s (http://www.manga109.org).
+Original manga images are (c) their authors and publishers; the dataset
+and its images are NOT redistributed here. Publications using this model
+should cite the Manga109-s paper per the dataset's terms, and any
+redistribution of the model must retain this attribution
+("trained on Manga109-s").
+
+Architecture: RF-DETR, (c) Roboflow, Apache-2.0
+  https://github.com/roboflow/rf-detr
+
+Training recipe adapted from forkger/manga-panel-rfdetr (Apache-2.0)
+  https://github.com/forkger/manga-panel-rfdetr
+
+Third-party runtime: onnxruntime (MIT License), (c) Microsoft.
