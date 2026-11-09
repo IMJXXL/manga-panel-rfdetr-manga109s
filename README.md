@@ -1,3 +1,5 @@
+**English** | [简体中文](README.zh-CN.md)
+
 # Manga Panel Detection — RF-DETR (trained on Manga109-s)
 
 Single-class comic **panel (frame) detector** for manga pages, built on
@@ -114,32 +116,3 @@ Medium @ 576、50 epochs、EMA）直接沿用其公开发布的工作；放弃 l
   and retain the "trained on Manga109-s" attribution when redistributing.
 - Architecture: [RF-DETR](https://github.com/roboflow/rf-detr) by Roboflow (Apache-2.0).
 - Runtime: [onnxruntime](https://github.com/microsoft/onnxruntime) (MIT).
-
-## 中文说明
-
-单类漫画分格检测模型（RF-DETR，DETR 集合预测，免 NMS），基于
-[Manga109-s](http://www.manga109.org) 训练，用于开源安卓漫画阅读器
-「漫读」的逐格阅读引导。全量评测 F1 0.947（贪心 IoU≥0.5 微平均，可复现，
-脚本在 `eval/`）；安卓端 FP16 约 1.1 秒/页（骁龙 8+、4 线程、576×576）。
-「漫读」的覆盖层完全异步：页面立即渲染，检测完成后框才浮现，顺序阅读时
-下一页自动预取——日常逐格阅读基本感觉不到这 1.1 秒。运行时带全 ABI
-（含 32 位），没有 TFLite 那种 arm64-only 的缺口。
-13 页快尺少而精：全是真实阅读页，专门挑了跨界气泡、斜格这类平时最难分的
-情况，考的是引擎在实战里真正会翻车的地方。
-
-结果表多说一句：两版模型同一配方，全量 0.3 个点的差距在测量噪声内——
-这张表是验证我的训练管线没有练坏，不是给两个模型排座次；基线能这么强，
-恰恰是配方作者厉害（见特别感谢）。13 页的 2.7 个点样本更小，当参考看。
-
-权重在 [Releases](../../releases) 下载：FP16（手机）、FP32（主档）、
-checkpoint（微调）。输入输出规格见 [`onnx_io.json`](onnx_io.json)；竖页直接
-推理，**横页（双页拼版）需先顺时针旋转 90°**。
-
-安卓部署避坑：① release 混淆必须 `-keep class ai.onnxruntime.**`；
-② 预处理必须 CHW，HWC 交错直灌会静默出 0 框；③ INT8 动态量化在 ORT CPU
-不可用（ConvInteger 无内核），用 FP16。
-
-数据集图片因版权不再分发；使用请遵循 Manga109-s 条款，发布时注明
-**"trained on Manga109-s"**。训练配方沿用
-[forkger/manga-panel-rfdetr](https://github.com/forkger/manga-panel-rfdetr)，
-特别感谢 forkger（见上）。
