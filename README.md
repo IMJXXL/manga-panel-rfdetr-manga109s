@@ -82,6 +82,17 @@ boxes = dets[0][score > 0.40]                   # cxcywh, normalized
   ORT CPU kernel. FP16 (`onnxruntime.transformers.float16`) is the practical
   mobile path — zero quality loss measured (INT8 lost ~1.5 F1 points anyway).
 
+### About NPU acceleration
+
+In theory this class of model runs much faster on mobile NPUs — Qualcomm
+HTP via QNN (per-SoC context compilation) or NNAPI on Android, CoreML on
+Apple devices (which is what forkger's
+[rf-detr-to-coreml](https://github.com/forkger/rf-detr-to-coreml) targets
+on the Apple side). I deliberately ship CPU as the baseline: I trained this
+model to run on as many Android devices as possible, and every NPU route
+costs per-chipset builds plus a fresh round of quality verification.
+Untested by me — if you need the speed, the doors are open.
+
 ## Training
 
 - Data: [Manga109-s](http://www.manga109.org) (8533 double-page spreads)
