@@ -16,7 +16,7 @@ On-device latency (Android, FP16 ONNX, onnxruntime 1.31.1, 4 CPU threads,
 Snapdragon 695-class): **~1.1 s per page** at 576×576.
 
 ¹ The 13-page benchmark is a small hand-built stress test, not a random
-sample: real reader pages (One Piece / Attack on Titan), hand-annotated,
+sample: real reader pages from commercially published manga volumes, hand-annotated,
 and deliberately weighted toward the cases that are hard to split in
 practice — bubbles crossing panel gutters, slanted panel layouts. Few
 pages, but they are where engines actually fail in the field. The pages
