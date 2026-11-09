@@ -24,6 +24,11 @@ verdict.
 On-device latency (Android, FP16 ONNX, onnxruntime 1.31.1, 4 CPU threads,
 Snapdragon 8+): **~1.1 s per page** at 576×576.
 
+In Mandu the overlay is fully async: the page renders immediately and boxes
+arrive when inference finishes; the next page is prefetched during sequential
+reading, so in day-to-day panel-by-panel use the 1.1 s is mostly invisible.
+The runtime ships all Android ABIs (32-bit included) — no arm64-only gap.
+
 ¹ The 13-page benchmark is a small hand-built stress test, not a random
 sample: real reader pages from commercially published manga volumes, hand-annotated,
 and deliberately weighted toward the cases that are hard to split in
@@ -116,6 +121,9 @@ Medium @ 576、50 epochs、EMA）直接沿用其公开发布的工作；放弃 l
 [Manga109-s](http://www.manga109.org) 训练，用于开源安卓漫画阅读器
 「漫读」的逐格阅读引导。全量评测 F1 0.947（贪心 IoU≥0.5 微平均，可复现，
 脚本在 `eval/`）；安卓端 FP16 约 1.1 秒/页（骁龙 8+、4 线程、576×576）。
+「漫读」的覆盖层完全异步：页面立即渲染，检测完成后框才浮现，顺序阅读时
+下一页自动预取——日常逐格阅读基本感觉不到这 1.1 秒。运行时带全 ABI
+（含 32 位），没有 TFLite 那种 arm64-only 的缺口。
 13 页快尺少而精：全是真实阅读页，专门挑了跨界气泡、斜格这类平时最难分的
 情况，考的是引擎在实战里真正会翻车的地方。
 
