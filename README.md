@@ -15,9 +15,14 @@ guides in the open-source Android reader **Mandu (漫读)**.
 On-device latency (Android, FP16 ONNX, onnxruntime 1.31.1, 4 CPU threads,
 Snapdragon 695-class): **~1.1 s per page** at 576×576.
 
-¹ The 13-page benchmark uses hand-annotated copyrighted reader pages and is
-**not** redistributed; it is not reproducible from this repo. The full
-Manga109-s evaluation above is reproducible — see `eval/`.
+¹ The 13-page benchmark is a small hand-built stress test, not a random
+sample: real reader pages (One Piece / Attack on Titan), hand-annotated,
+and deliberately weighted toward the cases that are hard to split in
+practice — bubbles crossing panel gutters, slanted panel layouts. Few
+pages, but they are where engines actually fail in the field. The pages
+are copyrighted and the GT is **not** redistributed, so it is not
+reproducible from this repo; the full Manga109-s evaluation above is —
+see `eval/`.
 
 ## Model
 
@@ -102,6 +107,8 @@ Medium @ 576、50 epochs、EMA）直接沿用其公开发布的工作；放弃 l
 [Manga109-s](http://www.manga109.org) 训练，用于开源安卓漫画阅读器
 「漫读」的逐格阅读引导。全量评测 F1 0.947（贪心 IoU≥0.5 微平均，可复现，
 脚本在 `eval/`）；安卓端 FP16 约 1.1 秒/页（骁龙 695 级、4 线程、576×576）。
+13 页快尺少而精：全是真实阅读页，专门挑了跨界气泡、斜格这类平时最难分的
+情况，考的是引擎在实战里真正会翻车的地方。
 
 权重在 [Releases](../../releases) 下载：FP16（手机）、FP32（主档）、
 checkpoint（微调）。输入输出规格见 [`onnx_io.json`](onnx_io.json)；竖页直接
