@@ -2,7 +2,7 @@
 
 # 漫画分格检测 — RF-DETR（Manga109-s 训练）
 
-单类漫画**分格（画格）检测模型**，基于 [RF-DETR](https://github.com/roboflow/rf-detr)（Apache-2.0）。DETR 集合预测，**免 NMS**。为开源安卓漫画阅读器「漫读」的逐格阅读引导而训练。
+单类漫画**分格（画格）检测模型**，基于 [RF-DETR](https://github.com/roboflow/rf-detr)（Apache-2.0）。DETR 集合预测，**免 NMS**。为安卓漫画阅读器「漫读」的逐格阅读引导而训练。
 
 ## 评测结果
 
@@ -57,13 +57,13 @@ boxes = dets[0][score > 0.40]                   # cxcywh，归一化
 ## 训练
 
 - 数据：[Manga109-s](http://www.manga109.org)（8533 张双页拼版）
-- 配方：RF-DETR **Medium @ 576**，50 epochs，EMA best（val ema_mAP50 = 0.987，epoch 35），lr 1e-4，batch 4 × 梯度累积 4——与 [forkger/manga-panel-rfdetr](https://github.com/forkger/manga-panel-rfdetr) 同配方
+- 配方：RF-DETR **Medium @ 576**，50 epochs，EMA best（val ema_mAP50 = 0.987，epoch 35），lr 1e-4，batch 4 × 梯度累积 4——与 forkger 的 [manga-panel-rfdetr](https://huggingface.co/forkger/manga-panel-rfdetr) 同配方
 - 导出：ONNX（stretch + ImageNet 预处理——letterbox 实测更差）→ `onnxruntime.transformers.float16` 转 FP16
 - 逐 epoch 验证曲线：[`training/results.csv`](training/results.csv)
 
 ## 特别感谢
 
-**[forkger](https://github.com/forkger)**（[manga-panel-rfdetr](https://github.com/forkger/manga-panel-rfdetr)）。
+**[forkger](https://github.com/forkger)**（[manga-panel-rfdetr](https://huggingface.co/forkger/manga-panel-rfdetr)）。
 
 这个模型从他的公开工作起步：训练配方（RF-DETR Medium @ 576、50 epochs、EMA）是他的，放弃 letterbox 预处理和 INT8 量化这两个决定也来自他的评测笔记——不然这两条路我要白白耗掉几周。过程中我提的每一个问题他都认真答了。如果这个模型对你有用，请去给他的仓库点个 star。
 
