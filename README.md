@@ -5,7 +5,7 @@
 Single-class comic **panel (frame) detector** for manga pages, built on
 [RF-DETR](https://github.com/roboflow/rf-detr) (Apache-2.0). DETR-family
 set prediction — **no NMS needed**. Designed for page-by-page comic reading
-guides in the open-source Android reader **Mandu (漫读)**.
+guides in the Android reader **Mandu (漫读)**.
 
 ## Results
 
@@ -87,14 +87,14 @@ boxes = dets[0][score > 0.40]                   # cxcywh, normalized
 - Data: [Manga109-s](http://www.manga109.org) (8533 double-page spreads)
 - Recipe: RF-DETR **Medium @ 576**, 50 epochs, EMA best (val ema_mAP50 =
   0.987 at epoch 35), lr 1e-4, batch 4 × grad-accum 4 — same recipe as
-  [forkger/manga-panel-rfdetr](https://github.com/forkger/manga-panel-rfdetr)
+  [manga-panel-rfdetr (Hugging Face)](https://huggingface.co/forkger/manga-panel-rfdetr)
 - Export: ONNX (stretch + ImageNet preprocessing — letterbox measured worse)
   → FP16 via `onnxruntime.transformers.float16`
 - Per-epoch validation curve: [`training/results.csv`](training/results.csv)
 
 ## Special Thanks
 
-**[forkger](https://github.com/forkger)** ([manga-panel-rfdetr](https://github.com/forkger/manga-panel-rfdetr)).
+**[forkger](https://github.com/forkger)** ([manga-panel-rfdetr on Hugging Face](https://huggingface.co/forkger/manga-panel-rfdetr)).
 
 This model started from his released work: the training recipe
 (RF-DETR Medium @ 576, 50 epochs, EMA) is his, and his eval notes are
