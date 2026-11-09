@@ -12,6 +12,15 @@ guides in the open-source Android reader **Mandu (漫读)**.
 | Full Manga109-s spreads (8147 pages, greedy IoU≥0.5, micro F1) | **0.947** (P 0.952 / R 0.943) | 0.944 |
 | Internal 13-page reader benchmark (real reader pages, corrected GT)¹ | **0.917** | 0.890 |
 
+**How to read these numbers**: the two models share the same recipe and land
+within measurement noise of each other on the full evaluation — a 0.3-point
+margin can flip with threshold or harness details. This comparison exists to
+validate that our training pipeline reproduces the recipe correctly, not to
+rank the two models; a baseline this strong is exactly why the recipe's
+author is credited above. The 13-page margin (2.7 points, n = 13 pages) is a
+small sample — read it as a hint of better robustness on hard cases, not a
+verdict.
+
 On-device latency (Android, FP16 ONNX, onnxruntime 1.31.1, 4 CPU threads,
 Snapdragon 695-class): **~1.1 s per page** at 576×576.
 
@@ -109,6 +118,10 @@ Medium @ 576、50 epochs、EMA）直接沿用其公开发布的工作；放弃 l
 脚本在 `eval/`）；安卓端 FP16 约 1.1 秒/页（骁龙 695 级、4 线程、576×576）。
 13 页快尺少而精：全是真实阅读页，专门挑了跨界气泡、斜格这类平时最难分的
 情况，考的是引擎在实战里真正会翻车的地方。
+
+结果表多说一句：两版模型同一配方，全量 0.3 个点的差距在测量噪声内——
+这张表是验证我们的训练管线没有练坏，不是给两个模型排座次；基线能这么强，
+恰恰是配方作者厉害（见特别感谢）。13 页的 2.7 个点样本更小，当参考看。
 
 权重在 [Releases](../../releases) 下载：FP16（手机）、FP32（主档）、
 checkpoint（微调）。输入输出规格见 [`onnx_io.json`](onnx_io.json)；竖页直接
