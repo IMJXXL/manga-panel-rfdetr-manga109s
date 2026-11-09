@@ -22,7 +22,7 @@ small sample — read it as a hint of better robustness on hard cases, not a
 verdict.
 
 On-device latency (Android, FP16 ONNX, onnxruntime 1.31.1, 4 CPU threads,
-Snapdragon 695-class): **~1.1 s per page** at 576×576.
+Snapdragon 8+): **~1.1 s per page** at 576×576.
 
 ¹ The 13-page benchmark is a small hand-built stress test, not a random
 sample: real reader pages from commercially published manga volumes, hand-annotated,
@@ -115,7 +115,7 @@ Medium @ 576、50 epochs、EMA）直接沿用其公开发布的工作；放弃 l
 单类漫画分格检测模型（RF-DETR，DETR 集合预测，免 NMS），基于
 [Manga109-s](http://www.manga109.org) 训练，用于开源安卓漫画阅读器
 「漫读」的逐格阅读引导。全量评测 F1 0.947（贪心 IoU≥0.5 微平均，可复现，
-脚本在 `eval/`）；安卓端 FP16 约 1.1 秒/页（骁龙 695 级、4 线程、576×576）。
+脚本在 `eval/`）；安卓端 FP16 约 1.1 秒/页（骁龙 8+、4 线程、576×576）。
 13 页快尺少而精：全是真实阅读页，专门挑了跨界气泡、斜格这类平时最难分的
 情况，考的是引擎在实战里真正会翻车的地方。
 
