@@ -54,6 +54,15 @@ boxes = dets[0][score > 0.40]                   # cxcywh，归一化
 - **CHW，不是 HWC**：把 HWC 交错的像素灌进 `[1,3,576,576]` 张量会**静默输出 0 框**——不崩溃、不报错。
 - **别碰 INT8**：动态量化产生 `ConvInteger`，ORT CPU 没有这个内核。FP16（`onnxruntime.transformers.float16`）才是移动端正路——实测零精度损失（INT8 本身还掉了约 1.5 个 F1 点）。
 
+### 关于 NPU 加速
+
+理论上这类模型在手机 NPU 上会快非常多——安卓侧可走高通 HTP（QNN，按 SoC
+编译 context）或 NNAPI，苹果侧是 CoreML（forkger 的
+[rf-detr-to-coreml](https://github.com/forkger/rf-detr-to-coreml) 就是干这个的）。
+我有意以 CPU 作为基线发布：训练这个模型的初衷就是让尽可能多的安卓设备能用，
+而任何 NPU 路线都要按芯片分代编译、并重新验一轮精度。我自己没有测过——
+如果你需要那个速度，门是开着的。
+
 ## 训练
 
 - 数据：[Manga109-s](http://www.manga109.org)（8533 张双页拼版）
