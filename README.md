@@ -15,7 +15,7 @@ guides in the open-source Android reader **Mandu (漫读)**.
 **How to read these numbers**: the two models share the same recipe and land
 within measurement noise of each other on the full evaluation — a 0.3-point
 margin can flip with threshold or harness details. This comparison exists to
-validate that our training pipeline reproduces the recipe correctly, not to
+validate that my training pipeline reproduces the recipe correctly, not to
 rank the two models; a baseline this strong is exactly why the recipe's
 author is credited above. The 13-page margin (2.7 points, n = 13 pages) is a
 small sample — read it as a hint of better robustness on hard cases, not a
@@ -28,7 +28,7 @@ Snapdragon 695-class): **~1.1 s per page** at 576×576.
 sample: real reader pages from commercially published manga volumes, hand-annotated,
 and deliberately weighted toward the cases that are hard to split in
 practice — bubbles crossing panel gutters, slanted panel layouts. Few
-pages, but they are where engines actually fail in the field. The pages
+pages, but exactly where engines actually fail in the field. The pages
 are copyrighted and the GT is **not** redistributed, so it is not
 reproducible from this repo; the full Manga109-s evaluation above is —
 see `eval/`.
@@ -62,7 +62,7 @@ score = 1 / (1 + np.exp(-labels[0, :, 0]))      # sigmoid -> panel confidence
 boxes = dets[0][score > 0.40]                   # cxcywh, normalized
 ```
 
-## Android notes (pitfalls we hit, so you don't have to)
+## Android notes (pitfalls I hit, so you don't have to)
 
 - **R8/ProGuard**: release builds with minification must keep
   `-keep class ai.onnxruntime.** { *; }`. R8 deletes `ai.onnxruntime.TensorInfo`
@@ -89,15 +89,15 @@ boxes = dets[0][score > 0.40]                   # cxcywh, normalized
 
 **[forkger](https://github.com/forkger)** ([manga-panel-rfdetr](https://github.com/forkger/manga-panel-rfdetr)).
 
-This model started from their released work: the training recipe
-(RF-DETR Medium @ 576, 50 epochs, EMA) is theirs, and their eval notes are
-the reason we skipped letterbox preprocessing and INT8 quantization instead
-of wasting weeks on both. They also answered every question we asked along
-the way. If this model is useful to you, star their repo.
+This model started from his released work: the training recipe
+(RF-DETR Medium @ 576, 50 epochs, EMA) is his, and his eval notes are
+the reason I skipped letterbox preprocessing and INT8 quantization instead
+of wasting weeks on both. He also answered every question I asked along
+the way. If this model is useful to you, star his repo.
 
 **中文**：特别感谢 [forkger](https://github.com/forkger)。训练配方（RF-DETR
 Medium @ 576、50 epochs、EMA）直接沿用其公开发布的工作；放弃 letterbox
-预处理和 INT8 量化这两个决定，也来自他的评测笔记；过程中我们提的问题他都
+预处理和 INT8 量化这两个决定，也来自他的评测笔记；过程中我提的问题他都
 认真答了。如果这个模型对你有用，请去给他的仓库点个 star。
 
 ## License & Acknowledgements
@@ -120,7 +120,7 @@ Medium @ 576、50 epochs、EMA）直接沿用其公开发布的工作；放弃 l
 情况，考的是引擎在实战里真正会翻车的地方。
 
 结果表多说一句：两版模型同一配方，全量 0.3 个点的差距在测量噪声内——
-这张表是验证我们的训练管线没有练坏，不是给两个模型排座次；基线能这么强，
+这张表是验证我的训练管线没有练坏，不是给两个模型排座次；基线能这么强，
 恰恰是配方作者厉害（见特别感谢）。13 页的 2.7 个点样本更小，当参考看。
 
 权重在 [Releases](../../releases) 下载：FP16（手机）、FP32（主档）、
